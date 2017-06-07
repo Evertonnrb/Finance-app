@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    android:orientation="vertical"
+    tools:context="br.com.nrbsistemas.finance11.CadUsuActivity">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/preencha_o_form_lario_para_ter_acesso" />
+
+    <EditText
+        android:id="@+id/edt_cad_nome"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_digite_seu_nome"
+        android:maxLength="50"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/edt_cad_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_login"
+        android:maxLength="50"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/edt_cad_senha1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_digite_uma_senha"
+        android:maxLength="50"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/edt_cad_senha2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_redigite_a_senha"
+        android:maxLength="50"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/edt_cad_email"
+        android:layout_height="wrap_content"
+        android:hint="@string/str_digite_um_endere_o_de_email"
+        android:maxLength="50"
+        android:inputType="textEmailAddress"/>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btn_cad_salvar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Salvar" />
+
+    </LinearLayout>
+</LinearLayout>

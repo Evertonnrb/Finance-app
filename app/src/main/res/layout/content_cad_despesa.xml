@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="40dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.nrbsistemas.finance11.CadDespesaActivity"
+    tools:showIn="@layout/activity_cad_despesa">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_car_desp"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
+
+    <Spinner
+        android:id="@+id/spn_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"></Spinner>
+<LinearLayout
+    android:layout_marginTop="25dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:text="@string/selecione_a_categoria_de_despesas"
+        android:textColor="@android:color/black"
+        android:textSize="10dp" />
+
+    <Button
+        android:id="@+id/btn_data"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="85dp"
+        android:drawableBottom="@drawable/calendariio" />
+</LinearLayout>
+    <EditText
+        android:id="@+id/edt_descrisao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/descris_o"
+        android:maxLength="50"
+        android:maxLines="49"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edt_valor"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/valor"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/edt_imposto"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:hint="Imposto $"
+            android:text="0.0"
+            android:maxLength="9"
+            android:maxLines="1"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/btn_add_desp"
+            android:layout_width="180dp"
+            android:layout_height="80dp"
+            android:drawableBottom="@drawable/ic_save_black_24dp" />
+</LinearLayout>

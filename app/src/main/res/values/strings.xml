@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Finance 1.1</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Nomear activitys-->
+    <string name="title_activity_cad_usu">Cadastro de Usuários</string>
+
+    <!--menus-->
+    <string name="menu_conf">Configurações</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_sair">Sair</string>
+    <string name="str_orientacoes">Orientações</string>
+    <string name="str_conf">Configurações</string>
+    <string name="alerta_sim">Sim</string>
+    <string name="alert_nao">Não</string>
+
+    <!--Login activity-->
+    <string name="alerta_opcoes">Opções</string>
+    <string name="button_logar">Logar</string>
+    <string name="str_primeiro">Primeiro acesso? Click aqui!</string>
+    <string name="str_login">Login</string>
+    <string name="str_senha">Senha</string>
+    <string name="cbk_mantenha">Mantenha me conectado</string>
+    <string name="msg_erro_null">preencha o campo</string>
+
+
+    <!--Cadastro de ususarios-->
+    <string name="preencha_o_form_lario_para_ter_acesso">Preencha o formúlario para ter acesso</string>
+    <string name="str_digite_seu_nome">Digite seu nome</string>
+    <string name="str_digite_uma_senha">Digite uma senha</string>
+    <string name="str_redigite_a_senha">Redigite a senha</string>
+    <string name="str_digite_um_endere_o_de_email">Digite um endereço de email</string>
+    <string name="str_campo_ob">Campo necessário</string>
+    <string name="str_senha_minima">Senha deve conter no mínimo 5 caracteres</string>
+
+    <!--Preferencias-->
+    <string name="preferencias">Preferencias</string>
+    <string name="modo_eco">Modo economia</string>
+    <string name="str_valor_limite">Valor Limite</string>
+
+    <!--Cadastro de despesas act-->
+    <string name="title_activity_cad_despesa">Cadastro de despesas</string>
+    <string name="str_car_desp">Selecione a categoria de despesas</string>
+    <string name="selecione_a_categoria_de_despesas">Selecione a categoria de despesas</string>
+    <string name="descris_o">Descrisão</string>
+    <string name="valor">Valor $</string>
+    <string name="formato_numerico_inva">Formato de moeda inválido</string>
+
+    <!--lista despesas-->
+    <string-array name="lista_desp">
+        <item>selecione</item>
+        <item>Cartão de credito</item>
+        <item>Compras</item>
+        <item>Combustível</item>
+        <item>Lazer</item>
+    </string-array>
+    <!--Sobre activity-->
+    <string name="title_activity_sobre">Sobre o App Finance</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "O app finance foi desenvolvido com orientações da professore Edilene Veranuchi Campos"
+        "com o objetivo de avaliar os alunos Everton Ribeiro, Jhonnathan    ,Cleiton   , João   "
+        "valendo as notas n1 e n2 da turma do 4º semestre de Tecnologia e análise e desenvolvimento
+        de sistemas.\n"
+
+        "Everton Ribeiro RA 3425746757.\n\n"
+
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="str_sobre">Sobre</string>
+    <string name="alerta_eclusao">Tem certeza que deseja apagar todos registros? Operação não poderá ser desfeira</string>
+    <string name="alerta_atencao">Ateção</string>
+    <string name="alerta_registro_apagado">Registros apagados</string>
+
+</resources>

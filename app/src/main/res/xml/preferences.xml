@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/preferencias">
+        <CheckBoxPreference
+            android:key="modo_economia"
+            android:summary="@string/modo_eco"
+            android:title="@string/modo_eco" />
+        <EditTextPreference
+            android:defaultValue="80"
+            android:dialogTitle="@string/str_valor_limite"
+            android:key="@string/str_valor_limite"
+            android:summary="@string/str_valor_limite"
+            android:title="@string/str_valor_limite" />
+    </PreferenceCategory>
+</PreferenceScreen>

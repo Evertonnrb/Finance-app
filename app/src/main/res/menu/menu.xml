@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_configuracao"
+        android:orderInCategory="100"
+        android:title="@string/menu_conf"
+        app:showAsAction="withText"
+        android:icon="@drawable/ic_settings_applications_black_24dp"/>
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/menu_logout"
+        app:showAsAction="withText"
+        android:icon="@drawable/ic_cancel_black_24dp"
+        ></item>
+    <item
+        android:id="@+id/action_sair"
+        android:orderInCategory="100"
+        android:title="@string/menu_sair"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        app:showAsAction="withText"
+        ></item>
+</menu>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_lista_gastos"
+            android:icon="@drawable/money_transfer"
+            android:title="Lista de gastos" />
+        <item
+            android:id="@+id/nav_imposto"
+            android:icon="@drawable/imposto"
+            android:title="Consultar impostos pagos" />
+        <item
+            android:id="@+id/nav_editar"
+            android:icon="@drawable/ic_border_color_black_24dp"
+            android:title="Editar" />
+        <item
+            android:id="@+id/nav_apagar_gastos"
+            android:icon="@drawable/delete"
+            android:title="Apagar registros" />
+    </group>
+
+</menu>
