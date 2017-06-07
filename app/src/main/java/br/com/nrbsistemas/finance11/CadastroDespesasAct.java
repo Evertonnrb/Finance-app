@@ -16,28 +16,25 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 import br.com.nrbsistemas.finance11.dao.DespesaDao;
 import br.com.nrbsistemas.finance11.entidades.Despesa;
 import br.com.nrbsistemas.finance11.util.Constantes;
 
-public class CadDespesaActivity extends AppCompatActivity {
+public class CadastroDespesasAct extends AppCompatActivity {
 
     private DespesaDao despesaDao;
     private Despesa despesa;
+
+    DateFormat dateFormat = DateFormat.getDateInstance();
+    Calendar dateTime = Calendar.getInstance();
     private int dia, mes, ano;
 
     private EditText edtDescrisao, edtValor, edtValorImpo;
     private Button btnData, btnAdd;
     private Spinner spnCategoria;
-    private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            ano = year;
-            mes = monthOfYear;
-            ano = year;
-            btnData.setText(dia + "/" + (mes + 1) + "/" + ano);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +53,14 @@ public class CadDespesaActivity extends AppCompatActivity {
                         despesaDao.salvar(despesa);
                         Log.i(Constantes.TAG, "salvou");
                         onRestart();
-                        Constantes._toastCurto(CadDespesaActivity.this, "Gasto adicionado com sucesso");
+                        Constantes._toastCurto(CadastroDespesasAct.this, "Gasto adicionado com sucesso");
                     } catch (Exception e) {
-                        Constantes._toastCurto(CadDespesaActivity.this, "Erro ao salvar \n");
+                        Constantes._toastCurto(CadastroDespesasAct.this, "Erro ao salvar \n");
                     }
-                } else {
-                    Constantes._toastCurto(CadDespesaActivity.this, "Erro ao salvar \n");
                 }
             }
         });
-
+        //Suporte botao home
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         despesa = new Despesa();
@@ -77,13 +72,11 @@ public class CadDespesaActivity extends AppCompatActivity {
         edtValorImpo = (EditText) findViewById(R.id.edt_imposto);
         btnData = (Button) findViewById(R.id.btn_data);
         btnAdd = (Button) findViewById(R.id.btn_add_desp);
-
+        //Charsquence do spinner
         ArrayAdapter<CharSequence> categoriaLista = ArrayAdapter.createFromResource(
                 this, R.array.lista_desp, android.R.layout.simple_spinner_dropdown_item
         );
         spnCategoria.setAdapter(categoriaLista);
-
-        //btnData.setText(dia + "/" + (mes + 1) + "/" + ano);
 
         btnData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,28 +88,27 @@ public class CadDespesaActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (validarCampos() == true) {
                     carregaGasto();
                     try {
                         despesaDao.salvar(despesa);
                         Log.i(Constantes.TAG, "salvou");
-                        Constantes._toastCurto(CadDespesaActivity.this, "Gasto adicionado com sucesso");
+                        Constantes._toastCurto(CadastroDespesasAct.this, "Gasto adicionado com sucesso");
                         onRestart();
                     } catch (Exception e) {
-                        Constantes._toastCurto(CadDespesaActivity.this, "Erro ao salvar \n");
+                        Constantes._toastCurto(CadastroDespesasAct.this, "Erro ao salvar \n");
                     }
-
                 } else {
-                    Constantes._toastCurto(CadDespesaActivity.this, "Erro ao salvar \n");
-
+                    Constantes._toastCurto(CadastroDespesasAct.this, "Erro ao salvar \n");
                 }
             }
         });
 
     }
 
-    //validar campos
+    /**
+     * Carrega uma instancia de despesas
+     */
     private void carregaGasto() {
         String categoria = spnCategoria.getSelectedItem().toString();
         String descrisao = edtDescrisao.getText().toString();
@@ -132,11 +124,10 @@ public class CadDespesaActivity extends AppCompatActivity {
 
     }
 
-    //data
-    public void selecionarData(View view) {
-        showDialog(view.getId());
-    }
-
+    /**
+     * @param id escuta o botao
+     * @return retorna uma data
+     */
     @Override
     protected Dialog onCreateDialog(int id) {
         if (R.id.btn_data == id) {
@@ -145,6 +136,22 @@ public class CadDespesaActivity extends AppCompatActivity {
         return null;
     }
 
+    public void selecionarData(View view) {
+        showDialog(view.getId());
+    }
+
+    private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            ano = year;
+            mes = monthOfYear;
+            ano = dayOfMonth;
+        }
+    };
+
+    /*
+    Botao home
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -155,6 +162,11 @@ public class CadDespesaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Valida so campos null e ""
+     *
+     * @return true persiste a despesa
+     */
     private boolean validarCampos() {
         if (spnCategoria.getSelectedItem().equals("selecione")) {
             Constantes._alertaSimples("Atenção", "Selecione uma opção", this);
@@ -180,8 +192,9 @@ public class CadDespesaActivity extends AppCompatActivity {
         return true;
     }
 
-
-
+    /**
+     * Limpas o edt ao restart app
+     */
     @Override
     protected void onRestart() {
         super.onRestart();

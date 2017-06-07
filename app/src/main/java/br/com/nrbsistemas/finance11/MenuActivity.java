@@ -1,9 +1,11 @@
 package br.com.nrbsistemas.finance11;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,9 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -47,6 +49,14 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constantes.PERMISSION_REQUEST);
+        }
 
         despesaDao = new DespesaDao(this);
 
@@ -121,7 +131,7 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_lista_gastos) {
 
-            startActivity(new Intent(this, ListarDespesaActivity.class));
+            startActivity(new Intent(this, ListarDespesaAct.class));
 
         } else if (id == R.id.nav_editar) {
 
@@ -140,7 +150,7 @@ public class MenuActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             despesaDao.apagarDespesas();
-                        Constantes._toastCurto(MenuActivity.this, getString(R.string.alerta_registro_apagado));
+                            Constantes._toastCurto(MenuActivity.this, getString(R.string.alerta_registro_apagado));
                         }
                     });
         }
@@ -151,7 +161,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
     public void _selecionarFoto(View view) {
-        Toast.makeText(this, "work", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "work", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivity(intent);
         String aquivo = Environment.getExternalStorageDirectory() + "/" + System.currentTimeMillis() + ".jpg";
@@ -165,11 +175,58 @@ public class MenuActivity extends AppCompatActivity
         //TODO carregar imagem
     }
 
+    /**
+     * Retorna a permissaod e acesso a galeria
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constantes.PERMISSION_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //permitido
+            } else {
+                //negado
+            }
+        }
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        return;
+    }
+
+    public void _personalizarIcone(final View view) {
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+        alerta.setTitle("Selecione");
+        alerta.setMessage("Selecione uma opção");
+                alerta.setPositiveButton("Galeria", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Pega imagem da galeria
+                Intent fotoGaleria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(fotoGaleria, Constantes.GALERIA_IMAGENS);
+            }
+        });
+        alerta.setNegativeButton("Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent tirarFoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(tirarFoto.resolveActivity(getPackageManager())!=null){
+                    startActivityForResult(tirarFoto,Constantes.TIRAR_FOTO);
+                }
+            }
+        });
+        alerta.create();
+        alerta.show();
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1) {
+        if (resultCode == RESULT_OK && requestCode == Constantes.GALERIA_IMAGENS) {
             Uri imageSelecionada = data.getData();
             String[] foto = {MediaStore.Images.Media.DATA};
             Cursor c = getContentResolver().query(imageSelecionada, foto, null, null, null);
@@ -180,41 +237,21 @@ public class MenuActivity extends AppCompatActivity
             Bitmap fotoGaleria = (BitmapFactory.decodeFile(carregaFoto));
             fotoPerfil.setImageBitmap(fotoGaleria);
         }
+        if (requestCode == Constantes.TIRAR_FOTO && requestCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap)extras.get("data");
+            fotoPerfil.setImageBitmap(bitmap);
+        }
     }
 
-    public void _personalizarIcone(final View view) {
-        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
-        alerta.setTitle("Selecione");
-        alerta.setMessage("Selecione uma opção");
-        alerta.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alerta.setPositiveButton("Galeria", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                _selecionarFoto(view);
-            }
-        });
-        alerta.setNegativeButton("CAMERA", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alerta.create();
-        alerta.show();
-    }
 
     public void _selecionarOpcao(View view) {
         switch (view.getId()) {
             case R.id.txt_novo_gasto:
-                startActivity(new Intent(this, CadDespesaActivity.class));
+                startActivity(new Intent(this, CadastroDespesasAct.class));
                 break;
             case R.id.txt_gasto_realizado:
-                startActivity(new Intent(this, ListarDespesaActivity.class));
+                startActivity(new Intent(this, ListarDespesaAct.class));
                 break;
             case R.id.txt_gasto_orientacao:
                 startActivity(new Intent(this, SobreActivity.class));

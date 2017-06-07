@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         usuarioDao = new UsuarioDao(this);
 
         mToolbar = (Toolbar) findViewById(R.id.inc_booton);
-        mToolbar.inflateMenu(R.menu.menu_toolbar);
+        //mToolbar.inflateMenu(R.menu.menu_toolbar);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -72,14 +72,6 @@ public class LoginActivity extends AppCompatActivity {
         ckbConect = (CheckBox) findViewById(R.id.ckb_conectado);
         imgage = (ImageView) findViewById(R.id.img_click);
 
-        imgage.setOnClickListener(new View.OnClickListener() {
-            //ABRE TELA DE LISTA DE USUARIOS
-            @Override
-            public void onClick(View v) {
-                _temporizador();
-            }
-        });
-
         imgage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -92,14 +84,13 @@ public class LoginActivity extends AppCompatActivity {
         txttCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, CadUsuActivity.class));
+                startActivity(new Intent(LoginActivity.this, CadastroUsuariosAct.class));
                 finish();
             }
         });
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 _logar();
             }
         });
@@ -111,8 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         if (conectado) {
             chamarMain();
         }
-
-
     }
 
     public void _logar() {
@@ -121,13 +110,13 @@ public class LoginActivity extends AppCompatActivity {
         String senha = edtSenha.getText().toString();
 
         if (login == null || login.equals("")) {
-            _limpar();
+            onRestart();
             edtLogin.setError(getString(R.string.msg_erro_null));
             edtLogin.requestFocus();
             validar = false;
         }
         if (senha == null || senha.equals("")) {
-            _limpar();
+            onRestart();
             edtLogin.setError(getString(R.string.msg_erro_null));
             edtLogin.requestFocus();
             validar = false;
@@ -145,17 +134,12 @@ public class LoginActivity extends AppCompatActivity {
                 chamarMain();
             } else {
                 Constantes._alertaSimples("Atenção", "Usuario e ou senha inválidos", this);
-                _limpar();
+                onRestart();
                 edtLogin.requestFocus();
             }
         }
     }
 
-    //limpar campos do form
-    public void _limpar() {
-        edtLogin.setText("");
-        edtSenha.setText("");
-    }
 
     public void chamarMain() {
         //Usuario usuario = new Usuario();
@@ -166,27 +150,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         //startActivity(new Intent(this, MenuActivity.class));
         finish();
-    }
-
-
-    private int conta() {
-        return atualiza += 1;
-    }
-
-    private void _temporizador() {//contador
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    conta();
-                    if (atualiza == 5) {
-                        startActivity(new Intent(LoginActivity.this, ListarUsuariosActivity.class));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, TEMPORIZADOR);
     }
 
     @Override
@@ -200,6 +163,14 @@ public class LoginActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        edtLogin.setText("");
+        edtSenha.setText("");
+
     }
 
     @Override

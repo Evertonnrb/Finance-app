@@ -15,14 +15,13 @@ import br.com.nrbsistemas.finance11.dao.UsuarioDao;
 import br.com.nrbsistemas.finance11.entidades.Usuario;
 import br.com.nrbsistemas.finance11.util.Constantes;
 
-public class CadUsuActivity extends AppCompatActivity {
+public class CadastroUsuariosAct extends AppCompatActivity {
 
     private Usuario usuario;
     private UsuarioDao usuarioDao;
 
     private EditText edtNome, edtLogin, edtSenha1, edtSenha2, edtEmail;
     private Button btnSalvar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +30,9 @@ public class CadUsuActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Suporte botao home
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        int idUsuario;
 
         usuario = new Usuario();
         usuarioDao = new UsuarioDao(this);
@@ -54,19 +52,15 @@ public class CadUsuActivity extends AppCompatActivity {
                     if (validarSenhas() == true) {
                         try {
                             carregarUsuario();
-                            _limpar();
-
-                            Constantes._toastCurto(CadUsuActivity.this, "Usuario salvo");
+                            onRestart();
+                            Constantes._toastCurto(CadastroUsuariosAct.this, "Usuario salvo");
                         } catch (Exception e) {
-                            Constantes._toastCurto(CadUsuActivity.this, "Erro " + e);
+                            Constantes._toastCurto(CadastroUsuariosAct.this, "Erro " + e);
                         }
-                    } else {
-                        validar();
                     }
                 }
             }
         });
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +70,10 @@ public class CadUsuActivity extends AppCompatActivity {
                 if (!edtNome.getText().toString().equals("") || !edtLogin.getText().toString().equals("") ||
                         !edtSenha1.getText().toString().equals("") || !edtSenha2.getText().toString().equals("")) {
                     carregarUsuario();
-                    _limpar();
+                    onRestart();
                     Snackbar.make(view, "Usuário salvo com sucesso", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }else{
-
+                } else {
                 }
 
                 Snackbar.make(view, "Preencha os campos", Snackbar.LENGTH_LONG)
@@ -90,20 +83,11 @@ public class CadUsuActivity extends AppCompatActivity {
         });
     }
 
-    public boolean validarCamopos() {
-        String nome = edtNome.getText().toString();
-        String login = edtLogin.getText().toString();
-        String senha1 = edtSenha1.getText().toString();
-        String email = edtEmail.getText().toString();
-
-        if (nome.equals("") && nome == null) {
-            edtNome.setError(getString(R.string.str_campo_ob));
-            return false;
-        }
-        return true;
-    }
-
-    //compara as senhas
+    /**
+     * Conpara se as senhas são iguais
+     *
+     * @return true para validação
+     */
     public boolean validarSenhas() {
         String senha1 = edtSenha1.getText().toString();
         String senha2 = edtSenha2.getText().toString();
@@ -114,26 +98,31 @@ public class CadUsuActivity extends AppCompatActivity {
         return false;
     }
 
-
-    //valida tudo ok
+    /**
+     * Valida os campos com alerta de erro
+     */
     public void validar() {
         edtSenha1.setText("");
         edtSenha2.setText("");
         edtSenha1.setError(getString(R.string.str_campo_ob));
     }
 
-    //carrega um susario
+    /**
+     * Carrega uma instancia de ususario
+     */
     public void carregarUsuario() {
-
         usuario.setNome(edtNome.getText().toString());
         usuario.setLogin(edtLogin.getText().toString());
         usuario.setSenha(edtSenha1.getText().toString());
         usuario.setEmail(edtEmail.getText().toString());
         usuarioDao.salvar(usuario);
-
     }
 
-    //remover metodo
+    /**
+     * Verifica os campos estão OK
+     *
+     * @return true para persistir
+     */
     public boolean validarCampos() {
         if (edtNome.getText().toString().length() == 0) {
             edtNome.setError(getString(R.string.str_campo_ob));
@@ -153,10 +142,10 @@ public class CadUsuActivity extends AppCompatActivity {
             edtEmail.setError(getString(R.string.str_senha_minima));
             edtEmail.setText("");
         }
-
         return true;
     }
 
+    //TODO resolver edição
     public void editarUsuario() {
         usuario.setNome(edtNome.getText().toString());
         usuario.setLogin(edtLogin.getText().toString());
@@ -165,15 +154,11 @@ public class CadUsuActivity extends AppCompatActivity {
         usuarioDao.editar(usuario);
     }
 
-    public void _limpar() {
-        edtNome.setText("");
-        edtEmail.setText("");
-        edtSenha1.setText("");
-        edtSenha2.setText("");
-        edtLogin.setText("");
-        edtEmail.setText("");
-    }
-
+    /**
+     *
+     * @param item
+     * @return ação da seleção
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -185,4 +170,17 @@ public class CadUsuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Limpa os edt
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        edtNome.setText("");
+        edtEmail.setText("");
+        edtSenha1.setText("");
+        edtSenha2.setText("");
+        edtLogin.setText("");
+        edtEmail.setText("");
+    }
 }

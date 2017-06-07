@@ -20,6 +20,10 @@ public class Constantes {
     public static final String TB_DESPESA = "despesas";
     //log
     public static final String TAG = "_info";
+    //Camera
+    public static final int GALERIA_IMAGENS = 1;
+    public static final int PERMISSION_REQUEST = 2;
+    public static final int TIRAR_FOTO= 3;
 
     public static void _toastCurto(Activity activity, String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
@@ -66,7 +70,7 @@ public class Constantes {
         builder.setMessage(msg);
         builder.setPositiveButton(activity.getString(R.string.alerta_sim),listener);
         builder.setNegativeButton(activity.getString(R.string.alert_nao),null);
-        builder.setIcon(R.drawable.icone);
+        builder.setIcon(R.drawable.alerta_exclusao);
         builder.show();
     }
     //combo box de opções

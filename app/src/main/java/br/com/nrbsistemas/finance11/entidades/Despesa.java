@@ -78,4 +78,11 @@ public class Despesa {
     public void setImposto(Double imposto) {
         this.imposto = imposto;
     }
+
+    @Override
+    public String toString() {
+        return "Data "+getData();
+    }
+
+
 }

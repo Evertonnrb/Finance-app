@@ -16,7 +16,7 @@ import br.com.nrbsistemas.finance11.entidades.Despesa;
 /**
  * Created by Everton on 02/06/2017.
  */
-
+//TODO excluir classe
 public class DespesasAdapter extends BaseAdapter {
 
     private Context context;

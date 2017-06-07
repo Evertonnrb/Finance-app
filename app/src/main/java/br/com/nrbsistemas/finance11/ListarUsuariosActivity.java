@@ -53,13 +53,13 @@ public class ListarUsuariosActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        //atenção ao cast
+        //TODO atenção ao cast
         int idPosicao = (int) usuarioList.get(posicaoItem).getId();
 
         switch (which) {
             //Editar
             case 0:
-                Intent intent = new Intent(this, CadUsuActivity.class);
+                Intent intent = new Intent(this, CadastroUsuariosAct.class);
                 intent.putExtra("id_usuario", idPosicao);//passando parametros para a act cadastro de usuarios
                 startActivity(intent);
                 break;

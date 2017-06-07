@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.nrbsistemas.finance11">
-
+    <!--So pode baixar se tuver camera-->
+    <uses-feature android:name="android.hardware.Camera"
+        android:required="true"></uses-feature>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -10,6 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MenuActivity"
             android:label="@string/app_name"
@@ -19,39 +23,55 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- tag parent para aux o botão home -->
-        <activity android:name=".Testar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-        <activity android:name=".LoginActivity">
+        <!-- tag parent para aux o botão home -->
 
+        <activity android:name=".LoginActivity">
         </activity>
+
         <activity
-            android:name=".CadUsuActivity"
+            android:name=".CadastroUsuariosAct"
             android:label="@string/title_activity_cad_usu"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".ListarUsuariosActivity" />
+
+        <activity android:name=".ListarUsuariosActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+
         <activity
-            android:name=".CadDespesaActivity"
+            android:name=".CadastroDespesasAct"
             android:label="@string/title_activity_cad_despesa"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
+
         <activity android:name=".ConfiguracoesAct" />
-        <activity android:name=".ListarDespesaActivity" />
+
+        <activity android:name=".ListarDespesaAct">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+
         <activity
             android:name=".SobreActivity"
             android:label="@string/title_activity_sobre"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
     </application>
 
 </manifest>
